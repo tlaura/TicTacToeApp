@@ -18,7 +18,7 @@ public class TicTacToeApp {
 			char computerToken = scan.next().charAt(0);
 			
 			TicTacToe game = new TicTacToe(playerToken, computerToken);
-			
+			Computer cpu = new Computer();
 		}
 		
 	}
