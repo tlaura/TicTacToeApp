@@ -1,15 +1,5 @@
 package tictactoeapplication;
 
-/* For storage: 
- *(for user board is numbered 1 to 9)
- *  0 | 1 | 2 
- * -----------
- *  3 | 4 | 5 
- * -----------
- *  6 | 7 | 8 
- * */
-
-
 public class TicTacToe {
 	protected char[] board;
 	protected char userMarker;
@@ -17,11 +7,14 @@ public class TicTacToe {
 	protected char winner;
 	protected char currentMarker;
 	
+	
 	public TicTacToe(char playerToken, char computerMarker) {
 		this.userMarker = playerToken;
 		this.computerMarker = computerMarker;
 		this.winner = '-';
 		this.board = setBoard();
+//		player goes first
+		this.currentMarker = userMarker;
 	}
 	
 	public char[] setBoard() {
@@ -53,37 +46,46 @@ public class TicTacToe {
 		return board[num-1] != '-';
 	}
 	
+/* For storage: 
+ *(for user board is numbered 1 to 9)
+ *  0 | 1 | 2 
+ * -----------
+ *  3 | 4 | 5 
+ * -----------
+ *  6 | 7 | 8 
+ * */
+	
 	
 	public void printBoard() {
 		System.out.println();
 		for (int i = 0; i < board.length; i++) {
 			if(i%3==0 && i != 0) {
 				System.out.println();
-				System.out.println("-----------");
+				System.out.println(" ------------");
 			}
-			System.out.println(" | " + board[i]);
+			System.out.print(" | " + board[i]);
 		}
 		System.out.println();
 	}
 	
 //	Show user how to input their data
-	public void printIndexBoard() {
+	public static void printIndexBoard() {
 		System.out.println();
-		for (int i = 0; i < board.length; i++) {
+		for (int i = 0; i < 9; i++) {
 			if(i%3==0 && i != 0) {
 				System.out.println();
-				System.out.println("-----------");
+				System.out.println(" ------------");
 			}
-			System.out.println(" | " + (i+1));
+			System.out.print(" | " + (i+1));
 		}
 		System.out.println();
 	}
 	
 	public boolean isThereAWinner() {
 //		Check if 3 identical tokens connected on board
-		boolean diagonalsAndMiddleWin = rightDi() || leftDi() || middleRow() || secondCol() && board[4] != '-';
-		boolean topAndFirst = topRow() || firstCol() && board[0] != '-';
-		boolean bottomAndThird = bottomRow() || thirdCol() && board[8] != '-';
+		boolean diagonalsAndMiddleWin = (rightDi() || leftDi() || middleRow() || secondCol()) && board[4] != '-';
+		boolean topAndFirst = (topRow() || firstCol()) && board[0] != '-';
+		boolean bottomAndThird = (bottomRow() || thirdCol()) && board[8] != '-';
 		
 //		If we have a winner, the winner token is at common spot
 		if(diagonalsAndMiddleWin) {
